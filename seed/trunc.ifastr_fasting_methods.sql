@@ -1,0 +1,2 @@
+TRUNCATE
+fasting_methods;
