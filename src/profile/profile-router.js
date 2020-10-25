@@ -8,29 +8,32 @@ const jsonParser = express.json()
 
 const serializeUser = user => ({
   id: user.user_id,
-  first_name: user.firstName,
-  last_name: user.lastName,
-  username: user.userName,
+  first_name: user.firstname,
+  last_name: user.lastname,
+  username: user.username,
   email: user.email,
   cell: user.cell,
+  pass: user.pass,
+  verified_status: user.verified_status,
+  join_date: user.join_date,
   method: user.method,
-  fasting_start: user.fastingStart,
+  fasting_start: user.fasting_start,
 })
 
 ProfilesRouter
   .route('/')
-  //require auth
+  //require auth reach goal
   .get((req, res, next) => {
     const knexInstance = req.app.get('db')
-    profilesService.getAllUserProfile(knexInstance)
+    profilesService.getUserProfile(knexInstance)
       .then(users => {
         res.json(users.map(serializeUser))
       })
       .catch(next)
   })
   .post(jsonParser, (req, res, next) => {
-    const { first_name, last_name, username, email, cell } = req.body
-    const newUser = { first_name, last_name, username, email, cell }
+    const { firstname, lastname, username, email, cell, pass, verified_status } = req.body
+    const newUser = { firstname, lastname, username, email, cell, pass, verified_status }
 
     for (const [key, value] of Object.entries(newUser))
       if (value == null)
@@ -83,8 +86,8 @@ ProfilesRouter
       .catch(next)
   })
   .patch(jsonParser, (req, res, next) => {
-    const { first_name, last_name, email, cell } = req.body
-    const userToUpdate = { first_name, last_name, email, cell }
+    const { firstname, lastname, email, cell, pass } = req.body
+    const userToUpdate = { firstname, lastname, email, cell, pass }
 
     const numberOfValues = Object.values(userToUpdate).filter(Boolean).length
     if (numberOfValues === 0)

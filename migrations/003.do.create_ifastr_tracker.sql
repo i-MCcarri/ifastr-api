@@ -1,9 +1,9 @@
 DROP TABLE IF EXISTS fasting_tracker;
 
-CREATE TABLE tracker
+CREATE TABLE fasting_tracker
 (
     fasting_id      SERIAL PRIMARY KEY,
-    fasting_start   TIMESTAMPTZ REFERENCES users(user_id),
+    fasting_start   TIMESTAMPTZ,
     fasting_length  INTEGER,
     feast_start     TIMESTAMPTZ,
     completed       BOOLEAN

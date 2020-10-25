@@ -18,9 +18,10 @@ MethodsRouter
   .route('/')
   .get((req, res, next) => {
     const knexInstance = req.app.get('db')
-    methodsService.getAllMethods(knexInstance)
+    MethodsService.getAllFastingMethods(knexInstance)
       .then(methods => {
-        res.json(methods.map(serializemethod))
+        // res.json(methods.map(serializemethod))
+        res.json(methods)
       })
       .catch(next)
   })
@@ -51,7 +52,7 @@ MethodsRouter
 MethodsRouter
   .route('/:method_id')
   .all((req, res, next) => {
-    methodsService.getById(
+    MethodsService.getById(
       req.app.get('db'),
       req.params.method_id
     )
@@ -83,7 +84,7 @@ MethodsRouter
         }
       })
 
-    methodsService.updatemethod(
+    MethodsService.updatemethod(
       req.app.get('db'),
       req.params.method_id,
       methodToUpdate

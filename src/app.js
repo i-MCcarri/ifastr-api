@@ -6,7 +6,8 @@ const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
 const authRouter = require('./auth/auth-router');
 const MethodsRouter = require('./methods/methods-router')
-
+const ProfilesRouter = require('./profile/profile-router')
+const TrackerRouter = require('./tracker/tracker-router')
 
 const app = express()
 
@@ -18,11 +19,10 @@ app.use(cors())
 app.use(helmet())
 
 //mount middleware.
-//app.use('./auth', authRouter)
-app.use('./tools/methods', MethodsRouter)
-// app.use('./tools/profile', profileRouter)
-// app.use('./tools/accountable', successfulIFRouter)
-// app.use('./tools/review', reviewRouter)
+//app.use('/auth', authRouter)
+app.use('/fasting_methods', MethodsRouter)
+app.use('/users', ProfilesRouter)
+app.use('/fasting_tracker', TrackerRouter)
 
 app.get('/', (req, res) => {
   res.send('Hello, User!')

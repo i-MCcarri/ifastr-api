@@ -1,27 +1,27 @@
 const ArticlesService = {
-    getAllUserProfile(knex) {
-      return knex.select('*').from('ifastr_users')
+    getUserProfile(knex) {
+      return knex.select('*').from('users')
     },
     insertUser(knex, newUser) {
       return knex
         .insert(newUser)
-        .into('ifastr_users')
+        .into('users')
         .returning('*')
         .then(rows => {
           return rows[0]
         })
     },
-    getUserById(knex, id) {
-      return knex.from('ifastr_users').select('*').where('id', id).first()
+    getUserById(knex, user_id) {
+      return knex.from('users').select('*').where('user_id', user_id).first()
     },
-    deleteUser(knex, id) {
-      return knex('ifastr_users')
-        .where({ id })
+    deleteUser(knex, user_id) {
+      return knex('users')
+        .where( 'user_id', user_id )
         .delete()
     },
-    updateProfile(knex, id, newUserFields) {
-      return knex('ifastr_users')
-        .where({ id })
+    updateProfile(knex, user_id, newUserFields) {
+      return knex('users')
+        .where( 'user_id', user_id )
         .update(newUserFields)
     },
   }

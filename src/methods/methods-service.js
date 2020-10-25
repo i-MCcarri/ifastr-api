@@ -1,7 +1,7 @@
 
 const MethodsService = {
     getAllFastingMethods(knex) {
-      return knex.select('*').from('ifastr_fasting_methods')
+      return knex.select('*').from('fasting_methods')
     },
     insertMethod(knex, newMethod) {
       return knex
@@ -13,7 +13,7 @@ const MethodsService = {
         })
     },
     getById(knex, id) {
-      return knex.from('ifastr_fasting_methods').select('*').where('id', id).first()
+      return knex.from('fasting_methods').select('*').where('id', id).first()
     },
     //no delete needed 
     updatemethod(knex, id, newMethodFields) {
