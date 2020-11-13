@@ -6,19 +6,22 @@ const MethodsService = {
     insertMethod(knex, newMethod) {
       return knex
         .insert(newMethod)
-        .into('ifastr_users')
+        .into('users')
         .returning('*')
         .then(rows => {
           return rows[0]
         })
     },
     getById(knex, id) {
-      return knex.from('fasting_methods').select('*').where('id', id).first()
+      return knex.from('fasting_methods')
+        .select('*')
+        .where('id', id)
+        .first()
     },
     //no delete needed 
-    updatemethod(knex, id, newMethodFields) {
-      return knex('ifastr_users')
-        .where({ id })
+    updatemethod(knex, user_id, newMethodFields) {
+      return knex('users')
+        .where({ user_id })
         .update(newMethodFields)
     },
   }

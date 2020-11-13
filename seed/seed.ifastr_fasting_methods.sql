@@ -1,4 +1,4 @@
-INSERT INTO fasting_methods ( method, fasting_length, feast)
+INSERT INTO fasting_methods ( method_options, fasting_length, feast_length)
 VALUES 
     ( '20:4', 20, 4),
     ( '19:5', 19, 5), 
