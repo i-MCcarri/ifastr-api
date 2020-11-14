@@ -22,7 +22,7 @@ const serializeUser = user => ({
 
 ProfilesRouter
   .route('/')
-  //require auth reach goal
+  //reach goal: require auth
   .get((req, res, next) => {
     const knexInstance = req.app.get('db')
     profilesService.getUserProfile(knexInstance)
@@ -73,8 +73,8 @@ ProfilesRouter
       .catch(next)
   })
   .get((req, res, next) => {
-    console.log(res.user)
-    console.log(serializeUser(res.user))
+    // console.log(res.user)
+    // console.log(serializeUser(res.user))
     res.json(serializeUser(res.user))
   })
   .delete((req, res, next) => {
@@ -95,7 +95,7 @@ ProfilesRouter
     if (numberOfValues === 0)
       return res.status(400).json({
         error: {
-          message: `Request body must content either 'title', 'style' or 'content'`
+          message: `Request body must content either user data.`
         }
       })
 
@@ -123,13 +123,13 @@ ProfilesRouter
     if (numberOfValues === 0)
       return res.status(400).json({
         error: {
-          message: `Request body must contain either 'method', 'feast' or 'fasting'`
+          message: `Request body must contain 'method'`
         }
       })
 
-    MethodsService.updatemethod(
+      profilesService.updateProfile(
       req.app.get('db'),
-      req.params.method_id,
+      req.params.user_id,
       userMethodToUpdate
     )
       .then(numRowsAffected => {
@@ -144,17 +144,18 @@ ProfilesRouter
   .patch(jsonParser, (req, res, next) => {
     const { fasting_start } = req.body
     const userFastingStartUpdate = { fasting_start }
-    console.log(userFastingStartUpdate)
+    //console.log(userFastingStartUpdate)
 
     const numberOfValues = Object.values(userFastingStartUpdate).filter(Boolean).length
-    if (numberOfValues === 0)
+    if (numberOfValues === 0) {
       return res.status(400).json({
         error: {
           message: `Request body must contain 'fasting_start'`
         }
       })
+    }
 
-    MethodsService.updatemethod(
+    profilesService.updateProfile(
       req.app.get('db'),
       req.params.user_id,
       userFastingStartUpdate

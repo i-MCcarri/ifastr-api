@@ -50,6 +50,55 @@ TrackerRouter
   })
 
 TrackerRouter
+  .route('/completed/')
+  // .all((req, res, next) => {
+  //   TrackerService.getCompletedFastData(
+  //     req.app.get('db')
+  //   )
+  //     .then(trackers => {
+  //       if (!trackers) {
+  //         return res.status(404).json({
+  //           error: { message: `Fast doesn't exist` }
+  //         })
+  //       }
+  //       res.trackers = trackers
+  //       next()
+  //     })
+  //     .catch(next)
+  // })
+  .get((req, res, next) => {
+    const knexInstance = req.app.get('db')
+    TrackerService.getCompletedFastData(knexInstance)
+      .then(trackers => {
+        res.json(trackers.map(serializeTracker))
+      })
+      .catch(next)
+    })
+  .patch(jsonParser, (req, res, next) => {
+    const { fasting_start, fasting_length, feast_start, completed } = req.body
+    const trackersToUpdate = { fasting_start, fasting_length, feast_start, completed }
+
+    const numberOfValues = Object.values(trackersToUpdate).filter(Boolean).length
+    if (numberOfValues === 0)
+      return res.status(400).json({
+        error: {
+          message: `Request body must content a fast.`
+        }
+      })
+
+    TrackerService.updateTracker(
+      req.app.get('db'),
+      req.params.fasting_id,
+      trackerToUpdate
+    )
+      .then(numRowsAffected => {
+        res.status(204).end()
+      })
+      .catch(next)
+  })
+
+ //Later use with fetch by date
+  TrackerRouter
   .route('/:fasting_id')
   .all((req, res, next) => {
     TrackerService.getTrackerById(

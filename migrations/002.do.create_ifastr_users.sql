@@ -12,5 +12,5 @@ CREATE TABLE users
     verified_status     BOOLEAN DEFAULT FALSE,
     join_date           TIMESTAMPTZ DEFAULT NOW(),
     method              INTEGER REFERENCES fasting_methods(method_id),
-    fasting_start       TIMESTAMPTZ
+    fasting_start       TIME
 );

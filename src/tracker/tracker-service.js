@@ -2,6 +2,12 @@ const TrackerService = {
     getAllTracker(knex) {
       return knex.select('*').from('fasting_tracker')
     },
+    getCompletedFastData(knex) {
+      return knex
+        .from('fasting_tracker')
+        .select('*')
+        .where('completed', true)
+    },
     insertTracker(knex, newTracker) {
       return knex
         .insert(newTracker)
