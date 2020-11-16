@@ -8,6 +8,11 @@ const TrackerService = {
         .select('*')
         .where('completed', true)
     },
+    // getDayOfTheWeekFromDate(knex) {
+    //   return 
+    //   knex.raw(select('*') 
+    //   .from('fasting_tracker'))
+    // },
     insertTracker(knex, newTracker) {
       return knex
         .insert(newTracker)
