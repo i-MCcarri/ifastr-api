@@ -1,6 +1,7 @@
 const path = require('path')
 const express = require('express')
 const TrackerService = require('./tracker-service')
+const { start } = require('repl')
 //require Auth definition: const {auth} = require('./')
 
 const TrackerRouter = express.Router()
@@ -51,21 +52,6 @@ TrackerRouter
 
 TrackerRouter
   .route('/completed/')
-  // .all((req, res, next) => {
-  //   TrackerService.getCompletedFastData(
-  //     req.app.get('db')
-  //   )
-  //     .then(trackers => {
-  //       if (!trackers) {
-  //         return res.status(404).json({
-  //           error: { message: `Fast doesn't exist` }
-  //         })
-  //       }
-  //       res.trackers = trackers
-  //       next()
-  //     })
-  //     .catch(next)
-  // })
   .get((req, res, next) => {
     const knexInstance = req.app.get('db')
     TrackerService.getCompletedFastData(knexInstance)
