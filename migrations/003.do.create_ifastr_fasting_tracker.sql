@@ -6,5 +6,5 @@ CREATE TABLE fasting_tracker
     fasting_start   TIMESTAMPTZ,
     fasting_length  INTEGER,
     feast_start     TIMESTAMPTZ DEFAULT now() NOT NULL,
-    completed       BOOLEAN
+    completed       BOOLEAN DEFAULT false
 );

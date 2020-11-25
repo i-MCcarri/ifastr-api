@@ -20,6 +20,12 @@ const serializeUser = user => ({
   fasting_start: user.fasting_start,
 })
 
+const serializeTimer = data => ({
+  method: data.method, 
+  fasting_start: data.fasting_start, 
+  fasting_length: data.fasting_length,
+})
+
 ProfilesRouter
   .route('/')
   //reach goal: require auth
@@ -164,6 +170,31 @@ ProfilesRouter
         res.status(204).end()
       })
       .catch(next)
+  })
+
+  ProfilesRouter
+  .route('/timer/:user_id')
+  .all((req, res, next) => {
+    profilesService.getFastingLengthForTimer(
+      req.app.get('db'),
+      req.params.user_id
+    )
+      .then(data => {
+        if (!data) {
+          return res.status(404).json({
+            error: { message: `User doesn't exist` }
+          })
+        }
+        console.log(data)
+        res.data = data
+        next()
+      })
+      .catch(next)
+  })
+  .get((req, res, next) => {
+    // console.log(res.user)
+    // console.log(serializeUser(res.user))
+    res.json(serializeTimer(res.data))
   })
 
 module.exports = ProfilesRouter
