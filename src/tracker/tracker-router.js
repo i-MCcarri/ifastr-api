@@ -28,8 +28,8 @@ TrackerRouter
   })
   //No delete needed, post and store all fasting data for data tracker
   .post(jsonParser, (req, res, next) => {
-    const { fasting_start, fasting_length, feast_start, completed } = req.body
-    const newTracker = { fasting_start, fasting_length, feast_start, completed }
+    const { fasting_start, fasting_length, completed } = req.body
+    const newTracker = { fasting_start, fasting_length, completed }
 
     for (const [key, value] of Object.entries(newTracker))
       if (value == null)
