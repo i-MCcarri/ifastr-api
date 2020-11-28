@@ -1,12 +1,13 @@
 const TrackerService = {
     getAllTracker(knex) {
-      return knex.select('*').from('fasting_tracker')
+      return knex.select('*').from('fasting_tracker').orderBy('fasting_id', 'desc')
     },
     getCompletedFastData(knex) {
       return knex
         .from('fasting_tracker')
         .select('*')
         .where('completed', true)
+        .orderBy('fasting_id', 'desc')
     },
     // getDayOfTheWeekFromDate(knex) {
     //   return 
