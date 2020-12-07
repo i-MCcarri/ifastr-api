@@ -1,6 +1,9 @@
 {
   "name": "ifastr",
   "version": "1.0.0",
+  "engines": {
+    "node": "12.19.0"
+  },
   "description": "intermittent fasting server",
   "main": "src/server.js",
   "scripts": {

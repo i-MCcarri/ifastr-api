@@ -20,9 +20,9 @@ const ArticlesService = {
       .from('fasting_methods')
       .select('fasting_methods.fasting_length')
       .where('fasting_methods.method_id', timerMethod[0].method);
-      console.log(timerMethod[0].method, 
-        fasting_start[0].fasting_start, 
-        fasting_length[0].fasting_length)
+      // console.log(timerMethod[0].method, 
+      //   fasting_start[0].fasting_start, 
+      //   fasting_length[0].fasting_length)
       return {  
         method: timerMethod[0].method, 
         fasting_start: fasting_start[0].fasting_start, 
