@@ -86,7 +86,7 @@ describe('tracker endpoints', () => {
     })
 })
 
-
+//coming soon:
 // ---- path /completed/
 //get
 //patch
