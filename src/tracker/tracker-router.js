@@ -51,7 +51,7 @@ TrackerRouter
   })
 
 TrackerRouter
-  .route('/completed/')
+  .route('/completed')
   .get((req, res, next) => {
     const knexInstance = req.app.get('db')
     TrackerService.getCompletedFastData(knexInstance)
